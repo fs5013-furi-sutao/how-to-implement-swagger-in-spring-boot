@@ -1,4 +1,25 @@
 # Spring Boot に Swagger を導入する方法
+
+## サンプルコードの実行方法
+
+### MySQL コンテナの起動
+```console
+docker-compose up -d
+```
+
+### API サーバの起動
+```console
+gradle bootRun
+```
+
+### API ドキュメントを開く
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+***
+
+## Swagger を使えるようにするには
 Spring Fox を追加するだけで良い。ただし、そのままでは不要な記載も表示されてしまうので、Swagger の設定を行う。
 
 ## Spring Fox を追加する

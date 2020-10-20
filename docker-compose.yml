@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-db-container
+    hostname: db-server
+    volumes:
+      - mysql-db-store:/var/lib/mysql:rw
+      - ./dokcer-mysql-8-0/logs:/var/log/mysql:rw
+      - ./dokcer-mysql-8-0/my.cnf:/etc/mysql/conf.d/my.cnf:rw
+      - ./dokcer-mysql-8-0/initdb:/docker-entrypoint-initdb.d:rw
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - TZ=${TZ}
+    ports:
+      - ${DB_PORT}:3306/tcp
+    # エラー対策
+    # File ./undo_001: 'aio write' returned OS error 122. Cannot continue operation
+    command: --innodb-use-native-aio=0
+
+volumes:
+  mysql-db-store:
